@@ -1,46 +1,48 @@
-import sys
+from PyQt5.QtWidgets import *
+from PyQt5.QtCore import QSize, Qt
 
-from PyQt5.QtWidgets import QWidget, QToolTip, QPushButton, QApplication, QLineEdit, QFormLayout
-from PyQt5.QtGui import QFont, QIntValidator
-from PyQt5 import QtWidgets
-
-class Textfield(QWidget):
+class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        Textfield1 = QLineEdit()
-        Textfield1.setValidator(QIntValidator())
+        self.setWindowTitle("Credits Calculation")
+        self.setFixedSize(QSize(500,800))
+        button = QPushButton("press this button",self)
+        button.setCheckable(True)
+        self.label = QLabel()
 
-        Textfield2 = QLineEdit()
-        Textfield2.setValidator(QIntValidator())
-        credits = Textfield1.text()
-        grade = Textfield2.text()
-        #relation = float(grade) / float(credits)
+        self.input = QLineEdit(self)
+        self.input.setVisible(True)
+        self.input.textChanged.connect(self.label.setText)
 
+        layout = QVBoxLayout()
+        layout.addWidget(self.input)
+        layout.addWidget(self.label)
 
-
-
-        button = QPushButton('calculate',self)
-        button.clicked.connect(self.on_click)
-
-        flo = QFormLayout()
-        flo.addRow("Credits",Textfield1)
-        flo.addRow("Grade",Textfield2)
-        flo.addRow(button)
-        self.setLayout(flo)
-    def on_click(self):
-
-        print("这门课的学分和成绩之间的关系是 %s and %s")
+        container = QWidget()
+        container.setLayout(layout)
 
 
 
+        button.clicked.connect(self.ButtonClicked)
+        #button.clicked.connect(self.disabletheWindow) disable the whole window
+
+    def ButtonClicked(self):
+        print("clicked")
+        #self.setWindowTitle("Window disabled")
+    def disabletheWindow(self):
+        self.setDisabled(True)
 
 
 
 
-if __name__=='__main__':
-    app = QtWidgets.QApplication(sys.argv)
-    window = Textfield()
-    window.setWindowTitle('Start')
-    window.resize(800,500)
-    window.show()
-    sys.exit(app.exec())
+
+
+
+
+
+app = QApplication([])
+
+window = MainWindow()
+window.show()
+
+app.exec()
