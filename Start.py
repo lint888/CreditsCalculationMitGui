@@ -30,6 +30,17 @@ class MainWindow(QMainWindow):
         #self.Resultlabel.setText(self.input.text())
 
 
+        button = QPushButton("calculate", self)
+        a = float(self.input.text())
+        b=float(self.inputgrade.text())
+        theresult = button.clicked.connect(self.ButtonCalculateClicked(a,b))
+
+
+
+        self.result = QLabel(self)
+        self.result.setText(theresult)
+        self.result.move(100,250)
+
     def createMenu(self):
         menuBar = self.menuBar()
         menuBar.setNativeMenuBar(False)
@@ -38,12 +49,17 @@ class MainWindow(QMainWindow):
         menuBar.addMenu(fileMenu)
         # Open Recent submenu
         self.openRecentMenu = fileMenu.addMenu("Open Recent")
+        self.readFiles = fileMenu.addMenu("read files")
         self.readImages = fileMenu.addMenu("Read Images")
         # Separator
         fileMenu.addSeparator()
 
         editMenu = menuBar.addMenu(" &Edit")
         menuBar.addMenu(editMenu)
+
+
+    def ButtonCalculateClicked(self,credit,grade):
+        return grade/ credit
 
 
 
