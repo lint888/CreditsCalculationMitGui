@@ -13,8 +13,9 @@ class MainWindow(QMainWindow):
         self.Creditslabel = QLabel(self)
         self.Creditslabel.setText("Credits")
         self.Creditslabel.move(100,50)
-        self.input = QLineEdit(self)
-        self.input.move(200,50)
+        self.inputCredits = QLineEdit(self)
+
+        self.inputCredits.move(200,50)
         #create the label for grade input
         self.gradelabel = QLabel(self)
         self.gradelabel.setText("Grade")
@@ -22,24 +23,24 @@ class MainWindow(QMainWindow):
         self.inputgrade = QLineEdit(self)
         self.inputgrade.move(200,100)
 
+        self.equationLabel = QLabel(self)
+        self.equationLabel.setText("equation")
+        self.equationLabel.move(200,200)
+
+
 
 
         self.Resultlabel = QLabel(self)
         self.Resultlabel.setText("Result")
-        self.Resultlabel.move(100,200)
+        self.Resultlabel.move(200,400)
         #self.Resultlabel.setText(self.input.text())
 
 
         button = QPushButton("calculate", self)
-        a = float(self.input.text())
-        b=float(self.inputgrade.text())
-        theresult = button.clicked.connect(self.ButtonCalculateClicked(a,b))
+
+        button.clicked.connect(self.ButtonCalculateClicked)
 
 
-
-        self.result = QLabel(self)
-        self.result.setText(theresult)
-        self.result.move(100,250)
 
     def createMenu(self):
         menuBar = self.menuBar()
@@ -58,8 +59,12 @@ class MainWindow(QMainWindow):
         menuBar.addMenu(editMenu)
 
 
-    def ButtonCalculateClicked(self,credit,grade):
-        return grade/ credit
+    def ButtonCalculateClicked(self):
+        self.equationLabel.setText(self.inputgrade.text() + "/" + self.inputCredits.text())
+        ans = eval(self.equationLabel.text())
+
+        self.Resultlabel.setText(str(ans))
+
 
 
 
